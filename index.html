@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PasteLink — Share Text Instantly and Securely</title>
+  <meta name="description"
+    content="Share snippets of text, code, or private notes instantly with PasteLink. Features password protection, burn-after-read, and auto-deleting links. No signup required.">
+  <meta name="keywords"
+    content="pastebin, share text, secure sharing, self-destructing text, encrypted notes, developers, simple text share">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pastelink.app/">
+  <meta property="og:title" content="PasteLink — Share Text Instantly and Securely">
+  <meta property="og:description"
+    content="The fastest way to share text snippets. Auto-deleting links, password protection, and zero tracking.">
+  <meta property="og:image" content="https://pastelink.app/og-image.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://pastelink.app/">
+  <meta property="twitter:title" content="PasteLink — Share Text Instantly and Securely">
+  <meta property="twitter:description"
+    content="The fastest way to share text snippets. Auto-deleting links, password protection, and zero tracking.">
+  <meta property="twitter:image" content="https://pastelink.app/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22black%22/><path d=%22M30 50a20 20 0 0 1 40 0l10-10a20 20 0 0 0-40-40l-2.3 2.3M70 50a20 20 0 0 1-40 0l-10 10a20 20 0 0 0 40 40l2.3-2.3%22 stroke=%22white%22 stroke-width=%2210%22 fill=%22none%22/></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="bg-grid"></div>
+
+  <header class="header">
+    <a href="index.html" class="brand">
+      <div class="brand-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+      </div>
+      <span class="brand-name">PasteLink</span>
+    </a>
+    <div class="header-right">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="mainTitle">
+      <div class="hero-badge">Free · No Registration · 100% Private</div>
+      <h1 class="hero-title" id="mainTitle">Share any text,<br><em>securely.</em></h1>
+      <p class="hero-sub">The ultimate tool for developers and privacy enthusiasts. Paste your content, set an expiry,
+        and get a link. Your data, your rules.</p>
+    </section>
+
+    <!-- Editor -->
+    <section class="editor-wrap">
+      <div class="editor-box" id="editorBox">
+        <!-- Top toolbar -->
+        <div class="editor-topbar">
+          <div class="topbar-left">
+            <button class="tab active" data-tab="write">Write</button>
+            <button class="tab" data-tab="preview">Preview</button>
+          </div>
+          <div class="topbar-right">
+            <span class="stat-pill" id="charStat">0 chars</span>
+            <span class="stat-pill" id="wordStat">0 words</span>
+          </div>
+        </div>
+
+        <!-- Write panel -->
+        <div class="panel" id="writePanel">
+          <textarea id="textInput" class="textarea" placeholder="Start typing or paste your text here…"
+            maxlength="50000" spellcheck="true"></textarea>
+        </div>
+
+        <!-- Preview panel -->
+        <div class="panel hidden" id="previewPanel">
+          <div class="preview-content" id="previewContent">
+            <span class="preview-empty">Nothing to preview yet.</span>
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="editor-bottombar">
+          <div class="options-row">
+            <!-- Expiry -->
+            <div class="option-group">
+              <label class="option-label">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                Expires
+              </label>
+              <div class="pill-group" id="expiryPills">
+                <button class="pill" data-val="600">10m</button>
+                <button class="pill active" data-val="3600">1h</button>
+                <button class="pill" data-val="43200">12h</button>
+                <button class="pill" data-val="86400">1d</button>
+                <button class="pill" data-val="604800">7d</button>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="option-group">
+              <label class="option-label">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                Password
+              </label>
+              <input type="password" id="passwordInput" class="mini-input" placeholder="Optional"
+                autocomplete="new-password" />
+            </div>
+
+            <!-- Burn after read -->
+            <div class="option-group">
+              <label class="option-label toggle-label" for="burnToggle">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+                </svg>
+                Burn after read
+              </label>
+              <label class="toggle" for="burnToggle">
+                <input type="checkbox" id="burnToggle" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <button class="btn-primary" id="saveBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+            </svg>
+            <span id="saveBtnText">Create Share Link</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div class="alert alert-error" id="errorAlert" style="display:none">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        <span id="errorMsg">Something went wrong.</span>
+      </div>
+    </section>
+
+    <!-- Result -->
+    <section class="result-wrap" id="resultWrap" style="display:none">
+      <div class="result-box">
+        <div class="result-header">
+          <div class="result-check">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <div>
+            <div class="result-title">Link created!</div>
+            <div class="result-meta" id="resultMeta">Auto-deletes in 1 hour</div>
+          </div>
+        </div>
+
+        <div class="link-row">
+          <div class="link-display">
+            <span class="link-prefix">pastelink.app/</span>
+            <span class="link-id" id="linkId">———</span>
+          </div>
+          <div class="link-actions">
+            <button class="icon-btn copy-btn" id="copyBtn" title="Copy link">
+              <svg class="copy-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+              <svg class="check-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </button>
+            <a class="icon-btn" id="openBtn" href="#" target="_blank" title="Open link">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="result-full-link" id="resultFullLink"></div>
+
+        <div class="result-footer">
+          <button class="btn-ghost" id="newBtn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            New paste
+          </button>
+          <div class="qr-hint" id="qrHint">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+            </svg>
+            <a class="qr-link" id="qrLink" href="#">View QR Code</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features strip -->
+    <section class="features">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="m13 2-2 10h8l-10 10 2-10H5l8-10z" />
+          </svg>
+        </div>
+        <div class="feature-text">
+          <strong>Instant sharing</strong>
+          <span>No signup required</span>
+        </div>
+      </div>
+      <div class="feature-divider"></div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        </div>
+        <div class="feature-text">
+          <strong>Password protect</strong>
+          <span>Keep content private</span>
+        </div>
+      </div>
+      <div class="feature-divider"></div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+          </svg>
+        </div>
+        <div class="feature-text">
+          <strong>Burn after read</strong>
+          <span>Self-destructs on open</span>
+        </div>
+      </div>
+      <div class="feature-divider"></div>
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18" />
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+            <line x1="10" y1="11" x2="10" y2="17" />
+            <line x1="14" y1="11" x2="14" y2="17" />
+          </svg>
+        </div>
+        <div class="feature-text">
+          <strong>Auto-delete</strong>
+          <span>Up to 7 days expiry</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© 2025 PasteLink</span>
+    <span class="footer-sep">·</span>
+    <span>No tracking. No ads. Just sharing.</span>
+  </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- QR Modal Overlay -->
+  <div class="raw-overlay" id="qrOverlay" style="display:none">
+    <div class="raw-box" style="max-width: 320px; text-align: center;">
+      <div class="raw-header">
+        <span>QR Code</span>
+        <button class="icon-btn" id="closeQr">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div style="padding: 2rem; background: #fff; display: flex; justify-content: center;">
+        <img id="qrImage" src="" alt="QR Code" style="max-width: 100%; height: auto; display: block;" />
+      </div>
+      <div style="padding: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-2);">
+        Scan this code to open the link on another device.
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+
+</html>
