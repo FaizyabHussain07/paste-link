@@ -17,6 +17,18 @@ function showToast(msg, icon = '') {
   setTimeout(() => toast.remove(), 3000);
 }
 
+function triggerDownload(content, type) {
+  const blob = new Blob([content], { type: type === 'doc' ? 'application/msword' : 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `pastelink-pro-${Date.now()}.${type}`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 // ---- DOM ----
 const loadingState = document.getElementById('loadingState');
 const passwordGate = document.getElementById('passwordGate');
@@ -34,6 +46,10 @@ const rawBtn = document.getElementById('rawBtn');
 const rawOverlay = document.getElementById('rawOverlay');
 const rawContent = document.getElementById('rawContent');
 const closeRaw = document.getElementById('closeRaw');
+const downloadBtn = document.getElementById('downloadBtn');
+const downloadMenu = document.getElementById('downloadMenu');
+const downloadTxt = document.getElementById('downloadTxt');
+const downloadDoc = document.getElementById('downloadDoc');
 const viewCharCount = document.getElementById('viewCharCount');
 const viewWordCount = document.getElementById('viewWordCount');
 const viewLineCount = document.getElementById('viewLineCount');
@@ -236,6 +252,24 @@ rawBtn.addEventListener('click', () => {
 closeRaw.addEventListener('click', () => { rawOverlay.style.display = 'none'; });
 rawOverlay.addEventListener('click', e => {
   if (e.target === rawOverlay) rawOverlay.style.display = 'none';
+});
+
+// ---- Download ----
+downloadBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  downloadMenu.classList.toggle('show');
+});
+
+document.addEventListener('click', () => {
+  downloadMenu.classList.remove('show');
+});
+
+downloadTxt.addEventListener('click', () => {
+  triggerDownload(viewContent.textContent, 'txt');
+});
+
+downloadDoc.addEventListener('click', () => {
+  triggerDownload(viewContent.textContent, 'doc');
 });
 
 // ---- Not found ----

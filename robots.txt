@@ -1,0 +1,10 @@
+# Robots.txt for PasteLink Pro
+# Allow indexing of main page but skip sensitive view pages that are private
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Disallow: /view.html
+Disallow: /api/
+
+Sitemap: https://paste-link-pro.vercel.app/sitemap.xml

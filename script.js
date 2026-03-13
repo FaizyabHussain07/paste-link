@@ -16,6 +16,18 @@ function showToast(msg, icon = '') {
   setTimeout(() => toast.remove(), 3000);
 }
 
+function triggerDownload(content, type) {
+  const blob = new Blob([content], { type: type === 'doc' ? 'application/msword' : 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `pastelink-pro-${Date.now()}.${type}`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 // ---- DOM ----
 const textInput = document.getElementById('textInput');
 const saveBtn = document.getElementById('saveBtn');
@@ -45,6 +57,10 @@ const previewContent = document.getElementById('previewContent');
 const qrOverlay = document.getElementById('qrOverlay');
 const qrImage = document.getElementById('qrImage');
 const closeQr = document.getElementById('closeQr');
+const downloadBtn = document.getElementById('downloadBtn');
+const downloadMenu = document.getElementById('downloadMenu');
+const downloadTxt = document.getElementById('downloadTxt');
+const downloadDoc = document.getElementById('downloadDoc');
 
 const MAX_CHARS = 50000;
 let selectedExpiry = 3600; // default 1 hour
@@ -208,7 +224,7 @@ saveBtn.addEventListener('click', async () => {
 
   } catch (err) {
     console.error(err);
-    showError('Could not save. Check your Firebase config and try again.');
+    showError('Could not save link. Please try again or check your connection.');
   } finally {
     setSaving(false);
   }
@@ -252,6 +268,24 @@ closeQr.addEventListener('click', () => {
 
 qrOverlay.addEventListener('click', (e) => {
   if (e.target === qrOverlay) qrOverlay.style.display = 'none';
+});
+
+// ---- Download ----
+downloadBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  downloadMenu.classList.toggle('show');
+});
+
+document.addEventListener('click', () => {
+  downloadMenu.classList.remove('show');
+});
+
+downloadTxt.addEventListener('click', () => {
+  triggerDownload(textInput.value, 'txt');
+});
+
+downloadDoc.addEventListener('click', () => {
+  triggerDownload(textInput.value, 'doc');
 });
 
 // ---- New paste ----

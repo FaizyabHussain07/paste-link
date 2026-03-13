@@ -733,6 +733,55 @@ body {
   border-color: var(--green);
 }
 
+/* Download Dropdown */
+.download-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.download-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  display: none;
+  flex-direction: column;
+  z-index: 100;
+  min-width: 130px;
+  overflow: hidden;
+  animation: fadeIn 0.15s ease;
+}
+
+.download-menu.show {
+  display: flex;
+}
+
+.download-item {
+  padding: 0.6rem 0.85rem;
+  font-size: 0.75rem;
+  color: var(--text-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--t);
+  text-align: left;
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.download-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-1);
+}
+
 .result-full-link {
   font-size: 0.72rem;
   font-family: 'DM Mono', monospace;

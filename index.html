@@ -9,6 +9,24 @@
     content="Share snippets of text, code, or private notes instantly with PasteLink. Features password protection, burn-after-read, and auto-deleting links. No signup required.">
   <meta name="keywords"
     content="pastebin, share text, secure sharing, self-destructing text, encrypted notes, developers, simple text share">
+  <link rel="canonical" href="https://paste-link-pro.vercel.app/">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PasteLink Pro",
+      "operatingSystem": "Web",
+      "applicationCategory": "UtilitiesApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      },
+      "description": "Securely share text, code, and notes with auto-deleting links and password protection."
+    }
+  </script>
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -16,7 +34,7 @@
   <meta property="og:title" content="PasteLink — Share Text Instantly and Securely">
   <meta property="og:description"
     content="The fastest way to share text snippets. Auto-deleting links, password protection, and zero tracking.">
-  <meta property="og:image" content="https://pastelink.app/og-image.png">
+  <meta property="og:image" content="https://paste-link-pro.vercel.app/og-image.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
@@ -24,7 +42,7 @@
   <meta property="twitter:title" content="PasteLink — Share Text Instantly and Securely">
   <meta property="twitter:description"
     content="The fastest way to share text snippets. Auto-deleting links, password protection, and zero tracking.">
-  <meta property="twitter:image" content="https://pastelink.app/og-image.png">
+  <meta property="twitter:image" content="https://paste-link-pro.vercel.app/og-image.png">
 
   <!-- Favicon (Bolder & Clearer) -->
   <link rel="icon" type="image/svg+xml"
@@ -219,6 +237,20 @@
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </button>
+            <div class="download-wrap">
+              <button class="icon-btn" id="downloadBtn" title="Download text">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              </button>
+              <div class="download-menu" id="downloadMenu">
+                <button class="download-item" id="downloadTxt">.txt (Text File)</button>
+                <button class="download-item" id="downloadDoc">.doc (Word Doc)</button>
+              </div>
+            </div>
             <a class="icon-btn" id="openBtn" href="#" target="_blank" title="Open link">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
