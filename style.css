@@ -906,6 +906,19 @@ body {
   color: var(--border-strong);
 }
 
+.footer-link {
+  color: var(--text-2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--t);
+  border-bottom: 1.5px solid transparent;
+}
+
+.footer-link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 /* ============ VIEW PAGE ============ */
 .view-main {
   padding-top: 2rem;
