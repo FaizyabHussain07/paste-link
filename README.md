@@ -1,4 +1,4 @@
-# 📋 PasteLink
+# 📋 PasteLink Pro
 > **Share any text, securely.** Minimal, fast, and auto-deleting text sharing platform.
 
 PasteLink is a modern, production-ready text sharing application built with privacy and speed in mind. It uses **Upstash Redis** for high-performance temporary storage and **Vercel Serverless Functions** for secure backend operations.
