@@ -29,7 +29,7 @@ export default async function handler(req, res) {
             await fetch(`${url}/del/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
                 method: 'POST'
-            }).catch(e => console.error("Burn failed:", e));
+            });
         }
 
         return res.status(200).json({ data });

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     try {
         const bodyObj = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
         const { customId, expirySeconds, ...data } = bodyObj;
-        
+
         const url = process.env.UPSTASH_REDIS_REST_URL;
         const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
