@@ -3,15 +3,17 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { customId, expirySeconds, ...data } = JSON.parse(req.body);
-    const url = process.env.UPSTASH_REDIS_REST_URL;
-    const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-
-    if (!url || !token) {
-        return res.status(500).json({ error: 'Database configuration missing' });
-    }
-
     try {
+        const bodyObj = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+        const { customId, expirySeconds, ...data } = bodyObj;
+        
+        const url = process.env.UPSTASH_REDIS_REST_URL;
+        const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+        if (!url || !token) {
+            return res.status(500).json({ error: 'Database configuration missing' });
+        }
+
         const pasteData = {
             ...data,
             customId,

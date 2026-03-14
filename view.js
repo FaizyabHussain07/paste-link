@@ -144,15 +144,7 @@ function showContent(text, data) {
   viewWrap.style.display = 'block';
 }
 
-// ---- Burn after read ----
-async function burnPaste() {
-  if (!pasteData || !pasteData.customId) return;
-  try {
-    await database.deletePaste(pasteData.customId);
-  } catch (e) {
-    console.warn('Could not delete burned paste:', e);
-  }
-}
+
 
 // ---- Load paste ----
 async function loadPaste() {
@@ -186,10 +178,7 @@ async function loadPaste() {
     // Show content
     showContent(pasteData.content, pasteData);
 
-    // Burn after read
-    if (pasteData.burnAfterRead) {
-      await burnPaste();
-    }
+
 
   } catch (err) {
     console.error(err);
@@ -212,9 +201,7 @@ async function submitPassword() {
   if (hash === pasteData.passwordHash) {
     passwordGate.style.display = 'none';
     showContent(pasteData.content, pasteData);
-    if (pasteData.burnAfterRead) {
-      await burnPaste();
-    }
+
   } else {
     gateError.style.display = 'block';
     gateInput.value = '';

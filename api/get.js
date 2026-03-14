@@ -17,11 +17,19 @@ export default async function handler(req, res) {
             return res.status(404).json({ error: 'Not found' });
         }
 
-        const data = JSON.parse(result.result);
+        const data = typeof result.result === 'string' ? JSON.parse(result.result) : result.result;
 
-        // Final safety check
+        // Final safety check for timestamp expiry
         if (data.expiresAt && data.expiresAt < Date.now()) {
             return res.status(404).json({ error: 'Expired' });
+        }
+
+        // Handle Server-Side Burn After Read
+        if (data.burnAfterRead) {
+            await fetch(`${url}/del/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+                method: 'POST'
+            }).catch(e => console.error("Burn failed:", e));
         }
 
         return res.status(200).json({ data });
