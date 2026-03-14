@@ -34,7 +34,7 @@
   <meta property="og:title" content="PasteLink — Share Text Instantly and Securely">
   <meta property="og:description"
     content="The fastest way to share text snippets. Auto-deleting links, password protection, and zero tracking.">
-  <meta property="og:image" content="https://paste-link-pro.vercel.app/og-image.png">
+  <meta property="og:image" content="https://paste-link-pro.vercel.app/logo.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
@@ -42,11 +42,10 @@
   <meta property="twitter:title" content="PasteLink — Share Text Instantly and Securely">
   <meta property="twitter:description"
     content="The fastest way to share text snippets. Auto-deleting links, password protection, and zero tracking.">
-  <meta property="twitter:image" content="https://paste-link-pro.vercel.app/og-image.png">
+  <meta property="twitter:image" content="https://paste-link-pro.vercel.app/logo.png">
 
-  <!-- Favicon (Bolder & Clearer) -->
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%23000%22/><path d=%22M30 32h40v12H30zM30 48h40v12H30zM30 64h25v12H30z%22 fill=%22%23fff%22/></svg>">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
@@ -60,14 +59,10 @@
 
   <header class="header">
     <a href="index.html" class="brand">
-      <div class="brand-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-        </svg>
+      <div class="brand-icon" style="background: none; padding: 0;">
+        <img src="logo.png" alt="PasteLink Logo" width="24" height="24" style="border-radius: 4px;" />
       </div>
-      <span class="brand-name">PasteLink</span>
+      <span class="brand-name">PasteLink Pro</span>
     </a>
     <div class="header-right">
       <button class="icon-btn" id="themeToggle" title="Toggle theme">
@@ -354,7 +349,7 @@
     <span class="footer-sep">·</span>
     <span>Developed by <a href="https://faizyab-hussain.vercel.app" target="_blank" class="footer-link">Faizyab</a></span>
     <span class="footer-sep">·</span>
-    <span>Secure & Anonymous</span>
+    <span><a href="privacy.html" class="footer-link">Privacy Policy</a></span>
   </footer>
 
   <div class="toast-container" id="toastContainer"></div>
