@@ -264,6 +264,33 @@ body {
   font-weight: 400;
 }
 
+/* ---- PH Badge ---- */
+.ph-badge {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.ph-badge a {
+  transition: opacity var(--t);
+}
+
+.ph-badge a:hover {
+  opacity: 0.85;
+}
+
+.ph-dark {
+  display: none !important;
+}
+
+[data-theme="dark"] .ph-light {
+  display: none !important;
+}
+
+[data-theme="dark"] .ph-dark {
+  display: block !important;
+}
+
 /* ---- Editor ---- */
 .editor-wrap {
   margin-bottom: 1rem;
