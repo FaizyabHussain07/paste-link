@@ -8,9 +8,9 @@
     { "source": "/contact", "destination": "/pages/contact.html" },
     { "source": "/terms", "destination": "/pages/terms.html" },
     { "source": "/privacy", "destination": "/pages/privacy.html" },
-    { "source": "/robots.txt", "destination": "/public/robots.txt" },
-    { "source": "/sitemap.xml", "destination": "/public/sitemap.xml" },
-    { "source": "/googled5e9f1c43ffe54df.html", "destination": "/public/googled5e9f1c43ffe54df.html" }
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
+    { "source": "/googled5e9f1c43ffe54df.html", "destination": "/googled5e9f1c43ffe54df.html" }
   ],
 
   "headers": [
