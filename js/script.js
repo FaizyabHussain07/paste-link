@@ -185,13 +185,17 @@ saveBtn.addEventListener('click', async () => {
   hideError();
   resultWrap.style.display = 'none';
 
-  try {
-    const customId = genId(8);
-    const burnAfter = burnToggle.checked;
-    const pw = passwordInput.value.trim();
-    const pwHash = pw ? await hashPassword(pw) : null;
+  const customId = genId(8);
+  const burnAfter = burnToggle.checked;
+  const pw = passwordInput.value.trim();
+  let pwHash = null;
 
-    await database.savePaste({
+  try {
+    if (pw) {
+      pwHash = await hashPassword(pw);
+    }
+
+    const response = await database.savePaste({
       customId,
       content,
       expirySeconds: selectedExpiry,
@@ -200,13 +204,13 @@ saveBtn.addEventListener('click', async () => {
       passwordHash: pwHash,
     });
 
+    // Always show success regardless - the data is saved
     showToast('Link created successfully!', '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>');
 
-
-    // Build URL
+    // Build URL using the custom ID we sent
     generatedURL = `${window.location.origin}/view.html?id=${customId}`;
     linkDisplayURL.textContent = generatedURL;
-    // Update clickable result link
+    
     try {
       resultFullLink.href = generatedURL;
       resultFullLink.textContent = generatedURL;
@@ -229,10 +233,17 @@ saveBtn.addEventListener('click', async () => {
     resultWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
   } catch (err) {
-    console.error(err);
-    // Hide result area when save fails
+    console.error('Save error:', err);
     try { resultWrap.style.display = 'none'; } catch (_) {}
-    showError(err.message || 'Could not save link. Please try again or check your connection.');
+    
+    // Better error messaging
+    let errorMsg = 'Could not save link. Please try again or check your connection.';
+    if (err.name === 'AbortError') {
+      errorMsg = 'Request timeout. Your connection might be slow. Please try again.';
+    } else if (err.message) {
+      errorMsg = err.message;
+    }
+    showError(errorMsg);
   } finally {
     setSaving(false);
   }

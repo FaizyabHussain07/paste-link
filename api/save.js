@@ -52,7 +52,12 @@ export default async function handler(req, res) {
         if (!response.ok || result.error) {
             return res.status(500).json({ error: result.error || 'Upstash pipeline failed' });
         }
-        return res.status(200).json(result);
+        return res.status(200).json({ 
+            success: true, 
+            customId: customId,
+            expiresAt: pasteData.expiresAt,
+            message: 'Paste created successfully' 
+        });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
