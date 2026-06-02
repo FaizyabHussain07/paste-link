@@ -4,64 +4,151 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PasteLink — Share Text Instantly and Securely</title>
-  <meta name="description"
-    content="Share snippets of text, code, or private notes instantly with PasteLink. Features password protection, burn-after-read, and auto-deleting links. No signup required.">
-  <meta name="keywords"
-    content="pastebin, share text, secure sharing, self-destructing text, encrypted notes, developers, simple text share">
-  <link rel="canonical" href="https://paste-link-pro.vercel.app/">
+  <title id="seo1">PasteLink Pro | Secure Text Sharing Tool</title>
+  <meta name="description" id="seo2"
+    content="PasteLink Pro lets you share text securely with password protection, auto-expiry, and burn-after-read links. No signup required.">
+  <meta name="keywords" id="seo3"
+    content="pastebin alternative, secure text sharing, temporary text sharing, password protected paste, burn after read, developer tools, online notes sharing">
+  <link rel="canonical" href="https://paste-link-pro.vercel.app/" id="seo4">
 
   <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
+  <script type="application/ld+json" id="seo7">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "PasteLink Pro",
+      "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Web",
-      "applicationCategory": "UtilitiesApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0.00",
-        "priceCurrency": "USD"
-      },
-      "description": "Securely share text, code, and notes with auto-deleting links and password protection."
+      "description": "Secure text sharing with expiry, password protection, and burn-after-read"
     }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PasteLink Pro",
+    "url": "https://paste-link-pro.vercel.app/"
+  }
+  </script>
+  <script type="application/ld+json" id="seo6">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "PasteLink Pro",
+    "url": "https://paste-link-pro.vercel.app",
+    "description": "Secure temporary text sharing platform",
+    "founder": "Faizyab Hussain"
+  }
   </script>
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://paste-link-pro.vercel.app/">
-  <meta property="og:title" content="PasteLink — Share Text Instantly and Securely">
+  <meta property="og:title" content="PasteLink Pro | Secure Temporary Text Sharing">
   <meta property="og:description"
-    content="The fastest way to share text snippets. Auto-deleting links, password protection, and zero tracking.">
-  <meta property="og:image" content="https://paste-link-pro.vercel.app/logo.png">
+    content="PasteLink Pro lets you share text securely with password protection, auto-expiry, and burn-after-read links. No signup required.">
+  <meta property="og:image" content="https://paste-link-pro.vercel.app/assets/logo.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://paste-link-pro.vercel.app/">
-  <meta property="twitter:title" content="PasteLink — Share Text Instantly and Securely">
+  <meta property="twitter:title" content="PasteLink Pro | Secure Temporary Text Sharing">
   <meta property="twitter:description"
-    content="The fastest way to share text snippets. Auto-deleting links, password protection, and zero tracking.">
-  <meta property="twitter:image" content="https://paste-link-pro.vercel.app/logo.png">
+    content="PasteLink Pro lets you share text securely with password protection, auto-expiry, and burn-after-read links. No signup required.">
+  <meta property="twitter:image" content="https://paste-link-pro.vercel.app/assets/logo.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/png" href="assets/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 
- 
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQB6BPVTC5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-EQB6BPVTC5');
+  </script>
+
+  <!-- Driver.js for Onboarding Tour -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+  <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+
+  <!-- Feedback UI -->
+  <script src="js/feedback.js" defer></script>
+
+  <!-- Vercel Analytics + Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json" id="seo8">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is PasteLink free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, PasteLink is completely free to use with no signup required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data secure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, passwords are hashed and data is stored temporarily with auto-expiry."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is burn after read?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It means your paste is deleted immediately after it is viewed once."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are passwords stored?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No, we only store a cryptographic hash of your password. We cannot read or recover it." }
+      },
+      {
+        "@type": "Question",
+        "name": "How long can a paste remain available?",
+        "acceptedAnswer": { "@type": "Answer", "text": "You can set an expiry between 10 minutes and 7 days." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I share code snippets?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Absolutely! The monospace editor makes it perfect for sharing code." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use it on mobile?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, the interface is fully responsive and optimized for mobile devices." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data encrypted?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, data is transmitted securely via HTTPS and stored in a secure Redis database." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does PasteLink track users?",
+        "acceptedAnswer": { "@type": "Answer", "text": "We only collect basic, anonymized product analytics to improve the app. We do not track personal identifying information." }
+      }
+    ]
+  }
   </script>
 </head>
 
@@ -72,7 +159,7 @@
   <header class="header">
     <a href="index.html" class="brand">
       <div class="brand-icon" style="background: none; padding: 0;">
-        <img src="logo.png" alt="PasteLink Logo" width="24" height="24" style="border-radius: 4px;" />
+        <img src="assets/logo.png" alt="PasteLink Logo" width="24" height="24" style="border-radius: 4px;" />
       </div>
       <span class="brand-name">PasteLink Pro</span>
     </a>
@@ -103,11 +190,21 @@
     <section class="hero" aria-labelledby="mainTitle">
       <div class="hero-badge">Free · No Registration · 100% Private</div>
       <h1 class="hero-title" id="mainTitle">Share any text,<br><em>securely.</em></h1>
-      <p class="hero-sub">The ultimate tool for developers and privacy enthusiasts. Paste your content, set an expiry,
-        and get a link. Your data, your rules.</p>
+      <p class="hero-sub" id="seo9"><strong>What is PasteLink?</strong> PasteLink is a secure temporary text sharing
+        tool that lets you share text with expiry, password protection, and burn-after-read features.</p>
+
+
       <div class="ph-badge">
-        <a class="ph-light" href="https://www.producthunt.com/products/pastelink-pro?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-pastelink-pro" target="_blank" rel="noopener noreferrer"><img alt="PasteLink Pro - Share Text Instantly and Securely | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1098215&amp;theme=light&amp;t=1773730422734"></a>
-        <a class="ph-dark" href="https://www.producthunt.com/products/pastelink-pro?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-pastelink-pro" target="_blank" rel="noopener noreferrer"><img alt="PasteLink Pro - Share Text Instantly and Securely | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1098215&amp;theme=dark&amp;t=1773730435367"></a>
+        <a class="ph-light"
+          href="https://www.producthunt.com/products/pastelink-pro?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-pastelink-pro"
+          target="_blank" rel="noopener noreferrer"><img
+            alt="PasteLink Pro - Share Text Instantly and Securely | Product Hunt" width="250" height="54"
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1098215&amp;theme=light&amp;t=1773730422734"></a>
+        <a class="ph-dark"
+          href="https://www.producthunt.com/products/pastelink-pro?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-pastelink-pro"
+          target="_blank" rel="noopener noreferrer"><img
+            alt="PasteLink Pro - Share Text Instantly and Securely | Product Hunt" width="250" height="54"
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1098215&amp;theme=dark&amp;t=1773730435367"></a>
       </div>
     </section>
 
@@ -360,14 +457,144 @@
         </div>
       </div>
     </section>
+    <!-- Additional Sections -->
+    <section class="info-section">
+      <div class="info-grid">
+        <!-- How It Works -->
+        <div class="info-card">
+          <h3>How PasteLink Works</h3>
+          <ol class="custom-list">
+            <li><strong>Paste Your Content</strong>: Type or paste your text/code.</li>
+            <li><strong>Choose Privacy Settings</strong>: Set expiry and optional password.</li>
+            <li><strong>Share Securely</strong>: Get a unique link or QR code.</li>
+            <li><strong>Auto Delete</strong>: Your data is wiped when time's up or after read.</li>
+          </ol>
+        </div>
+
+        <!-- Use Cases -->
+        <div class="info-card">
+          <h3>Who Uses PasteLink?</h3>
+          <ul class="custom-list">
+            <li>Developers sharing snippets</li>
+            <li>Students and Researchers</li>
+            <li>Teams requiring temporary sharing</li>
+            <li>Customer Support</li>
+            <li>Privacy enthusiasts</li>
+          </ul>
+        </div>
+
+        <!-- Security Features -->
+        <div class="info-card">
+          <h3>Built for Privacy</h3>
+          <ul class="custom-list">
+            <li>Password Protection (SHA-256)</li>
+            <li>Burn After Read option</li>
+            <li>Auto Expiry up to 7 days</li>
+            <li>Serverless Infrastructure</li>
+            <li>No Registration Required</li>
+          </ul>
+        </div>
+
+        <!-- Live Stats -->
+        <div class="info-card stats-card" id="statsSection">
+          <h3>Live Product Statistics</h3>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-val" id="stat-pastes">--</span>
+              <span class="stat-lbl">Total Pastes</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val" id="stat-views">--</span>
+              <span class="stat-lbl">Total Views</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val" id="stat-countries">14+</span>
+              <span class="stat-lbl">Active Countries</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val" id="stat-expiry">--</span>
+              <span class="stat-lbl">Popular Expiry</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+      <div class="proof-badges">
+        <span class="proof-badge">1700+ Monthly Users</span>
+        <span class="proof-badge">2000+ Page Views</span>
+        <span class="proof-badge">100% Free</span>
+      </div>
+      <div class="testimonial">
+        <p>"Very useful for temporary sharing."</p>
+        <span>— Ahmed, Pakistan</span>
+        <small>Based on real feedback submitted by PasteLink users.</small>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <h3>Frequently Asked Questions</h3>
+      <div class="faq-grid">
+        <details>
+          <summary>Is PasteLink free?</summary>
+          <p>Yes, 100% free. No registration required.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>No account needed for privacy.</p>
+        </details>
+        <details>
+          <summary>How secure is PasteLink?</summary>
+          <p>We use SHA-256 for passwords and auto-expiring databases.</p>
+        </details>
+        <details>
+          <summary>What is burn-after-read?</summary>
+          <p>Text self-destructs after the first view.</p>
+        </details>
+        <details>
+          <summary>Are passwords stored?</summary>
+          <p>We only store a cryptographic hash. We cannot read it.</p>
+        </details>
+        <details>
+          <summary>How long can a paste remain available?</summary>
+          <p>Between 10 minutes and 7 days.</p>
+        </details>
+        <details>
+          <summary>Can I share code snippets?</summary>
+          <p>Yes, perfect for code.</p>
+        </details>
+        <details>
+          <summary>Can I use it on mobile?</summary>
+          <p>Yes, fully mobile responsive.</p>
+        </details>
+        <details>
+          <summary>Is my data encrypted?</summary>
+          <p>Yes, via HTTPS and secure Redis.</p>
+        </details>
+        <details>
+          <summary>Does PasteLink track users?</summary>
+          <p>Only basic, anonymized product stats. No personal info.</p>
+        </details>
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
     <span>© 2026 PasteLink Pro</span>
     <span class="footer-sep">·</span>
-    <span>Developed by <a href="https://faizyab-hussain.vercel.app" target="_blank" class="footer-link">Faizyab</a></span>
+    <span>Developed by <a href="https://faizyab-hussain.vercel.app" target="_blank"
+        class="footer-link">Faizyab</a></span>
     <span class="footer-sep">·</span>
-    <span><a href="privacy.html" class="footer-link">Privacy Policy</a></span>
+    <span>
+      <a href="about.html" class="footer-link">About</a> ·
+      <a href="contact.html" class="footer-link">Contact</a> ·
+      <a href="terms.html" class="footer-link">Terms</a> ·
+      <a href="privacy.html" class="footer-link">Privacy</a>
+    </span>
   </footer>
 
   <div class="toast-container" id="toastContainer"></div>
@@ -394,7 +621,7 @@
     </div>
   </div>
 
-  <script type="module" src="script.js"></script>
+  <script type="module" src="js/script.js"></script>
 </body>
 
 </html>

@@ -9,14 +9,23 @@
     content="Learn how PasteLink protects your privacy and secures your shared texts. We do not track, store logs, or sell your data.">
   <meta name="robots" content="index, follow">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/png" href="../assets/logo.png">
+  <link rel="canonical" href="https://paste-link-pro.vercel.app/privacy">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://paste-link-pro.vercel.app/privacy.html">
+  <meta property="og:title" content="Privacy Policy & Security — PasteLink Pro">
+  <meta property="og:description" content="Learn how PasteLink protects your privacy and secures your shared texts.">
+  <meta property="og:image" content="https://paste-link-pro.vercel.app/assets/logo.png">
+  <meta property="twitter:card" content="summary">
+  <meta property="twitter:title" content="Privacy Policy & Security — PasteLink Pro">
+  <meta property="twitter:description" content="Learn how PasteLink protects your privacy and secures your shared texts.">
+  <meta property="twitter:image" content="https://paste-link-pro.vercel.app/assets/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
   <style>
     .privacy-wrap {
       max-width: 800px;
@@ -73,14 +82,21 @@
 
     gtag('config', 'G-EQB6BPVTC5');
   </script>
+
+  <!-- Feedback UI -->
+  <script src="../js/feedback.js" defer></script>
+
+  <!-- Vercel Analytics + Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 </head>
 
   <div class="bg-grid"></div>
 
   <header class="header">
-    <a href="index.html" class="brand">
+    <a href="../index.html" class="brand">
       <div class="brand-icon" style="background: none; padding: 0;">
-        <img src="logo.png" alt="PasteLink Logo" width="24" height="24" style="border-radius: 4px;" />
+        <img src="../assets/logo.png" alt="PasteLink Logo" width="24" height="24" style="border-radius: 4px;" />
       </div>
       <span class="brand-name">PasteLink Pro</span>
     </a>
@@ -103,7 +119,7 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       </button>
-      <a href="index.html" class="btn-ghost" style="font-size:0.82rem">+ New paste</a>
+      <a href="../index.html" class="btn-ghost" style="font-size:0.82rem">+ New paste</a>
     </div>
   </header>
 
@@ -158,7 +174,12 @@
     <span class="footer-sep">·</span>
     <span>Developed by <a href="https://faizyab-hussain.vercel.app/" target="_blank" class="footer-link">Faizyab</a></span>
     <span class="footer-sep">·</span>
-    <span><a href="privacy.html" class="footer-link">Privacy Policy</a></span>
+    <span>
+      <a href="/about" class="footer-link">About</a> · 
+      <a href="/contact" class="footer-link">Contact</a> · 
+      <a href="/terms" class="footer-link">Terms</a> · 
+      <a href="/privacy" class="footer-link">Privacy</a>
+    </span>
   </footer>
 
   <script>
