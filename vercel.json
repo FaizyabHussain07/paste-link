@@ -12,13 +12,7 @@
     { "source": "/sitemap.xml", "destination": "/public/sitemap.xml" },
     { "source": "/googled5e9f1c43ffe54df.html", "destination": "/public/googled5e9f1c43ffe54df.html" }
   ],
-<<<<<<< HEAD
-  
-=======
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" }
-  ],
->>>>>>> a512465543e5edd72605d2817fd6b5c412b32c91
+
   "headers": [
     {
       "source": "/(.*)\\.(jpg|jpeg|png|gif|webp|svg|ico)",
