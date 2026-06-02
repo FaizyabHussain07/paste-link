@@ -40,12 +40,18 @@ export default async function handler(req, res) {
         if (data.burnAfterRead) pipelineBody.push(["INCR", "stats:burn_after_read"]);
 
         const response = await fetch(`${url}/pipeline`, {
-            headers: { Authorization: `Bearer ${token}` },
             method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(pipelineBody)
         });
 
         const result = await response.json();
+        if (!response.ok || result.error) {
+            return res.status(500).json({ error: result.error || 'Upstash pipeline failed' });
+        }
         return res.status(200).json(result);
     } catch (error) {
         return res.status(500).json({ error: error.message });

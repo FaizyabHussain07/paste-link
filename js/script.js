@@ -206,7 +206,13 @@ saveBtn.addEventListener('click', async () => {
     // Build URL
     generatedURL = `${window.location.origin}/view.html?id=${customId}`;
     linkDisplayURL.textContent = generatedURL;
-    resultFullLink.textContent = generatedURL;
+    // Update clickable result link
+    try {
+      resultFullLink.href = generatedURL;
+      resultFullLink.textContent = generatedURL;
+    } catch (_) {
+      // element may not exist in some pages
+    }
     openBtn.href = generatedURL;
 
     // QR Code via free API
@@ -224,7 +230,9 @@ saveBtn.addEventListener('click', async () => {
 
   } catch (err) {
     console.error(err);
-    showError('Could not save link. Please try again or check your connection.');
+    // Hide result area when save fails
+    try { resultWrap.style.display = 'none'; } catch (_) {}
+    showError(err.message || 'Could not save link. Please try again or check your connection.');
   } finally {
     setSaving(false);
   }
@@ -232,11 +240,12 @@ saveBtn.addEventListener('click', async () => {
 
 // ---- Copy link ----
 copyBtn.addEventListener('click', async () => {
+  const urlToCopy = (resultFullLink && resultFullLink.href) ? resultFullLink.href : generatedURL;
   try {
-    await navigator.clipboard.writeText(generatedURL);
+    await navigator.clipboard.writeText(urlToCopy);
   } catch {
     const ta = document.createElement('textarea');
-    ta.value = generatedURL;
+    ta.value = urlToCopy;
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');

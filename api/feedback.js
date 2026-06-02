@@ -27,8 +27,11 @@ export default async function handler(req, res) {
         };
 
         const response = await fetch(`${url}/set/feedback:${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
             method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(feedbackData)
         });
 

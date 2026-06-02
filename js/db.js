@@ -8,6 +8,9 @@ export const database = {
     async savePaste(data) {
         const response = await fetch('/api/save', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         });
         if (!response.ok) {
