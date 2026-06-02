@@ -41,6 +41,7 @@ const errorMsg = document.getElementById('errorMsg');
 const resultWrap = document.getElementById('resultWrap');
 const resultMeta = document.getElementById('resultMeta');
 const linkId = document.getElementById('linkId');
+const linkPrefix = document.getElementById('linkPrefix');
 const copyBtn = document.getElementById('copyBtn');
 const copyIcon = copyBtn.querySelector('.copy-icon');
 const checkIcon = copyBtn.querySelector('.check-icon');
@@ -205,6 +206,7 @@ saveBtn.addEventListener('click', async () => {
 
     // Build URL
     generatedURL = `${window.location.origin}/view.html?id=${customId}`;
+    linkPrefix.textContent = `${window.location.origin}/view.html?id=`;
     linkId.textContent = customId;
     resultFullLink.textContent = generatedURL;
     openBtn.href = generatedURL;
