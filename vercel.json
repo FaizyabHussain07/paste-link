@@ -13,8 +13,7 @@
     { "source": "/googled5e9f1c43ffe54df.html", "destination": "/public/googled5e9f1c43ffe54df.html" }
   ],
   "routes": [
-    { "handle": "error" },
-    { "status": 404, "dest": "/404.html" }
+    { "src": "/.*", "status": 404, "dest": "/404.html" }
   ],
   "headers": [
     {
