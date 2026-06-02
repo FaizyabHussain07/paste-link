@@ -204,7 +204,7 @@ saveBtn.addEventListener('click', async () => {
 
 
     // Build URL
-    generatedURL = `${window.location.origin}/view.html?id=${customId}`;
+    generatedURL = `${window.location.origin}/paste/${customId}`;
     linkId.textContent = customId;
     resultFullLink.textContent = generatedURL;
     openBtn.href = generatedURL;
@@ -319,3 +319,74 @@ function showError(msg) {
 function hideError() {
   errorAlert.style.display = 'none';
 }
+
+// ---- QR Tracking ----
+qrLink.addEventListener('click', () => {
+  if (qrImage.src) {
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event: 'qr_usage' })
+    }).catch(err => console.error('Failed to track QR usage', err));
+  }
+});
+
+// ---- Live Stats Fetch ----
+document.addEventListener('DOMContentLoaded', async () => {
+  const pastesEl = document.getElementById('stat-pastes');
+  const viewsEl = document.getElementById('stat-views');
+  const expiryEl = document.getElementById('stat-expiry');
+  const countriesEl = document.getElementById('stat-countries');
+
+  if (pastesEl) {
+    try {
+      const res = await fetch('/api/stats');
+      const data = await res.json();
+      if (data && !data.error) {
+        pastesEl.textContent = (data.totalPastes || 0).toLocaleString();
+        viewsEl.textContent = (data.totalViews || 0).toLocaleString();
+        expiryEl.textContent = data.popularExpiry || '1h';
+        countriesEl.textContent = (data.activeCountries || 14) + '+';
+      }
+    } catch (err) {
+      console.error('Failed to load stats', err);
+    }
+  }
+
+  // ---- Driver.js Onboarding Tour ----
+  if (typeof window.driver !== 'undefined') {
+    const hasSeenTour = localStorage.getItem('pl_tour_done');
+    if (!hasSeenTour && document.getElementById('editorBox')) {
+      const steps = [
+        { element: '.hero', popover: { title: '👋 Welcome to PasteLink Pro', description: 'Share text securely in seconds without signup.' } },
+        { element: '#textInput', popover: { title: '📝 Paste Your Content', description: 'You can paste text, code, or any temporary notes here.' } },
+        { element: '#expiryPills', popover: { title: '⏳ Choose Expiry Time', description: 'Your paste will auto-delete after selected time:<br>10 min, 1 hour, 12 hours, 1 day, 7 days' } },
+        { element: '#passwordInput', popover: { title: '🔒 Add Password (Optional)', description: 'Protect your paste with a password.<br>Only users with password can access it.' } },
+        { element: '.toggle-label', popover: { title: '🔥 Burn After Read', description: 'Paste will be deleted immediately after first view.' } },
+        { element: '#saveBtn', popover: { title: '🚀 Create Share Link', description: 'Click to generate a secure link instantly.' } },
+        { popover: { title: '📋 Copy & Share Link', description: 'Share via WhatsApp, Telegram, Email, Discord, etc.' } },
+        { popover: { title: '📱 QR Code Sharing', description: 'Scan QR code to open paste instantly.<br>Great for meetings and presentations.' } },
+        { popover: { title: '👀 Secure Viewing', description: 'Recipients can view content safely.<br>Password may be required.' } },
+        { popover: { title: '🛡 Your Privacy Controls', description: 'You control expiry, password, and access.<br>We do not require accounts or track personal data.' } }
+      ];
+
+      const driverObj = window.driver.driver({
+        showProgress: true,
+        steps: steps,
+        onDestroyStarted: () => {
+          if (!driverObj.hasNextStep() || driverObj.getState().activeIndex === steps.length - 1) {
+            fetch('/api/track', { method: 'POST', body: JSON.stringify({ event: 'tour_completed' }) }).catch(() => {});
+          } else {
+            fetch('/api/track', { method: 'POST', body: JSON.stringify({ event: 'tour_skipped' }) }).catch(() => {});
+          }
+          localStorage.setItem('pl_tour_done', 'true');
+          driverObj.destroy();
+        }
+      });
+      setTimeout(() => {
+        fetch('/api/track', { method: 'POST', body: JSON.stringify({ event: 'tour_started' }) }).catch(() => {});
+        driverObj.drive();
+      }, 500);
+    }
+  }
+});

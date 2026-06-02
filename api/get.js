@@ -19,6 +19,21 @@ export default async function handler(req, res) {
 
         const data = typeof result.result === 'string' ? JSON.parse(result.result) : result.result;
 
+        // Analytics
+        const dateStr = new Date().toISOString().split('T')[0];
+        try {
+            await fetch(`${url}/pipeline`, {
+                headers: { Authorization: `Bearer ${token}` },
+                method: 'POST',
+                body: JSON.stringify([
+                    ["INCR", "stats:total_views"],
+                    ["INCR", `stats:daily:views:${dateStr}`]
+                ])
+            });
+        } catch (err) {
+            console.error('Analytics error:', err);
+        }
+
         // Final safety check for timestamp expiry
         if (data.expiresAt && data.expiresAt < Date.now()) {
             return res.status(404).json({ error: 'Expired' });

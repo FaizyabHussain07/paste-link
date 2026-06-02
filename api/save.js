@@ -20,10 +20,29 @@ export default async function handler(req, res) {
             expiresAt: Date.now() + (expirySeconds * 1000)
         };
 
-        const response = await fetch(`${url}/set/${customId}?ex=${expirySeconds}`, {
+        const dateStr = new Date().toISOString().split('T')[0];
+        const expiryMap = {
+            600: '10m',
+            3600: '1h',
+            43200: '12h',
+            86400: '1d',
+            604800: '7d'
+        };
+        const expiryLabel = expiryMap[expirySeconds] || 'custom';
+        
+        const pipelineBody = [
+            ["SETEX", customId, expirySeconds, JSON.stringify(pasteData)],
+            ["INCR", "stats:total_pastes"],
+            ["INCR", `stats:daily:pastes:${dateStr}`],
+            ["INCR", `stats:expiry:${expiryLabel}`]
+        ];
+        if (data.hasPassword) pipelineBody.push(["INCR", "stats:password_protected"]);
+        if (data.burnAfterRead) pipelineBody.push(["INCR", "stats:burn_after_read"]);
+
+        const response = await fetch(`${url}/pipeline`, {
             headers: { Authorization: `Bearer ${token}` },
             method: 'POST',
-            body: JSON.stringify(pasteData)
+            body: JSON.stringify(pipelineBody)
         });
 
         const result = await response.json();

@@ -4,19 +4,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>View Shared Text — PasteLink</title>
-  <meta name="description"
-    content="Click the link to view the shared text snippet on PasteLink. Secure, private, and temporary.">
+  <title id="seo1">View Paste Securely | PasteLink Pro</title>
+  <meta name="description" id="seo2"
+    content="PasteLink Pro lets you share text securely with password protection, auto-expiry, and burn-after-read links. No signup required.">
   <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://paste-link-pro.vercel.app/view.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="View Paste Securely | PasteLink Pro">
+  <meta property="og:description" content="PasteLink Pro lets you share text securely with password protection, auto-expiry, and burn-after-read links.">
+  <meta property="og:image" content="https://paste-link-pro.vercel.app/assets/logo.png">
+  <meta property="twitter:card" content="summary">
+  <meta property="twitter:title" content="View Paste Securely | PasteLink Pro">
+  <meta property="twitter:description" content="PasteLink Pro lets you share text securely with password protection, auto-expiry, and burn-after-read links.">
+  <meta property="twitter:image" content="https://paste-link-pro.vercel.app/assets/logo.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/png" href="assets/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQB6BPVTC5"></script>
@@ -27,6 +36,13 @@
 
     gtag('config', 'G-EQB6BPVTC5');
   </script>
+
+  <!-- Feedback UI -->
+  <script src="js/feedback.js" defer></script>
+
+  <!-- Vercel Analytics + Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 </head>
 
 <body>
@@ -36,7 +52,7 @@
   <header class="header">
     <a href="index.html" class="brand">
       <div class="brand-icon" style="background: none; padding: 0;">
-        <img src="logo.png" alt="PasteLink Logo" width="24" height="24" style="border-radius: 4px;" />
+        <img src="assets/logo.png" alt="PasteLink Logo" width="24" height="24" style="border-radius: 4px;" />
       </div>
       <span class="brand-name">PasteLink Pro</span>
     </a>
@@ -207,12 +223,17 @@
     <span class="footer-sep">·</span>
     <span>Developed by <a href="https://faizyab-hussain.vercel.app/" target="_blank" class="footer-link">Faizyab</a></span>
     <span class="footer-sep">·</span>
-    <span><a href="privacy.html" class="footer-link">Privacy Policy</a></span>
+    <span>
+      <a href="about.html" class="footer-link">About</a> · 
+      <a href="contact.html" class="footer-link">Contact</a> · 
+      <a href="terms.html" class="footer-link">Terms</a> · 
+      <a href="privacy.html" class="footer-link">Privacy</a>
+    </span>
   </footer>
 
   <div class="toast-container" id="toastContainer"></div>
 
-  <script type="module" src="view.js"></script>
+  <script type="module" src="js/view.js"></script>
 </body>
 
 </html>

@@ -149,7 +149,14 @@ function showContent(text, data) {
 // ---- Load paste ----
 async function loadPaste() {
   const params = new URLSearchParams(window.location.search);
-  const customId = params.get('id');
+  let customId = params.get('id');
+
+  if (!customId) {
+    const pathParts = window.location.pathname.split('/');
+    if (pathParts[1] === 'paste' && pathParts[2]) {
+      customId = pathParts[2];
+    }
+  }
 
   if (!customId) {
     showNotFound();
