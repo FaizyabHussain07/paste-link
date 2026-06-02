@@ -204,7 +204,7 @@ saveBtn.addEventListener('click', async () => {
 
 
     // Build URL
-    generatedURL = `${window.location.origin}/paste/${customId}`;
+    generatedURL = `${window.location.origin}/view.html?id=${customId}`;
     linkId.textContent = customId;
     resultFullLink.textContent = generatedURL;
     openBtn.href = generatedURL;
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         { popover: { title: '🛡 Your Privacy Controls', description: 'You control expiry, password, and access.<br>We do not require accounts or track personal data.' } }
       ];
 
-      const driverObj = window.driver.driver({
+      const driverObj = window.driver.js({
         showProgress: true,
         steps: steps,
         onDestroyStarted: () => {
