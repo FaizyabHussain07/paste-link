@@ -288,6 +288,28 @@ body {
   font-weight: 400;
 }
 
+/* ---- Trust Row ---- */
+.trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}
+
+.trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--text-2);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.8rem;
+}
+
 /* ---- PH Badge ---- */
 .ph-badge {
   display: flex;
@@ -313,6 +335,52 @@ body {
 
 [data-theme="dark"] .ph-dark {
   display: block !important;
+}
+
+/* ---- Create Page Intro ---- */
+.create-help-card {
+  max-width: 740px;
+  margin: 1rem auto 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-input));
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.create-help-copy h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.create-help-copy p {
+  color: var(--text-2);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.create-help-bullets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.create-help-bullets span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 999px;
+  background: var(--green-bg);
+  color: var(--green);
+  font-size: 0.76rem;
+  font-weight: 600;
 }
 
 /* ---- Editor ---- */
@@ -1060,6 +1128,126 @@ body {
 }
 
 /* ---- Homepage Additional Sections ---- */
+.launch-section {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 1.25rem 0 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-input));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: var(--green-bg);
+  color: var(--green);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+}
+.launch-copy h2 {
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+  line-height: 1.25;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.02em;
+}
+.launch-copy p {
+  color: var(--text-2);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+.launch-points {
+  display: grid;
+  gap: 0.7rem;
+}
+.launch-point {
+  padding: 0.8rem 0.9rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.launch-point strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-1);
+  margin-bottom: 0.2rem;
+}
+.launch-point span {
+  font-size: 0.78rem;
+  color: var(--text-3);
+}
+.launch-preview {
+  display: flex;
+  justify-content: center;
+}
+.launch-preview-card {
+  width: 100%;
+  max-width: 390px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+.preview-topbar {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+.preview-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--border-strong);
+}
+.preview-body {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+}
+.preview-pill {
+  display: inline-block;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: var(--green-bg);
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+.preview-line {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--border);
+  margin-bottom: 0.55rem;
+}
+.preview-line.long { width: 90%; }
+.preview-line.short { width: 55%; }
+.preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+}
+.preview-chip {
+  font-size: 0.72rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 999px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+}
 .info-section {
   margin-bottom: 3rem;
 }
