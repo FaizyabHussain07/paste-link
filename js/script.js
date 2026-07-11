@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  if (typeof window.driver !== 'undefined' && typeof window.driver.js === 'function') {
+  if (typeof window.driver !== 'undefined' && window.driver?.js) {
     const hasSeenTour = localStorage.getItem('pl_tour_done');
     const isCreatePage = !!document.getElementById('editorBox');
     const isHomePage = !!document.querySelector('.hero') && !isCreatePage;
@@ -426,7 +426,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             { element: '.faq-section', popover: { title: 'Review the FAQ', description: 'Check the most common questions about security, privacy, and expiry.' } }
           ];
 
-      const driverObj = window.driver.js({
+      const driverFactory = typeof window.driver?.js?.driver === 'function'
+        ? window.driver.js.driver
+        : typeof window.driver?.js === 'function'
+          ? window.driver.js
+          : null;
+
+      if (!driverFactory) return;
+
+      const driverObj = driverFactory({
         showProgress: true,
         steps,
         onDestroyStarted: () => {
