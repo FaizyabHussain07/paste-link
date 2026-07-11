@@ -71,6 +71,11 @@ const MAX_CHARS = 50000;
 let selectedExpiry = 3600;
 let generatedURL = '';
 const isCreatePage = Boolean(textInput && saveBtn && passwordInput && burnToggle);
+const TOUR_DONE_KEY = 'pl_tour_done';
+const RESULT_TOUR_DONE_KEY = 'pl_result_tour_done';
+let activeTourDriver = null;
+let resultTourShown = false;
+let resultTourPending = false;
 
 // ---- Theme ----
 function initTheme() {
@@ -253,6 +258,10 @@ if (isCreatePage) {
         resultWrap.style.display = 'block';
         resultWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
+
+      if (!localStorage.getItem(RESULT_TOUR_DONE_KEY)) {
+        setTimeout(() => queueResultTour(), 650);
+      }
     } catch (err) {
       console.error('Save error:', err);
       if (resultWrap) resultWrap.style.display = 'none';
@@ -382,6 +391,111 @@ function hideError() {
   if (errorAlert) errorAlert.style.display = 'none';
 }
 
+function trackTourEvent(eventName) {
+  fetch('/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event: eventName })
+  }).catch(() => {});
+}
+
+function resolveTourFactory() {
+  if (typeof window.driver === 'undefined' || !window.driver?.js) return null;
+  if (typeof window.driver.js.driver === 'function') return window.driver.js.driver;
+  if (typeof window.driver.js === 'function') return window.driver.js;
+  return null;
+}
+
+function launchTour(steps, options = {}) {
+  const driverFactory = resolveTourFactory();
+  if (!driverFactory || !Array.isArray(steps) || !steps.length) return null;
+
+  const driverObj = driverFactory({
+    showProgress: true,
+    stagePadding: 10,
+    smoothScroll: true,
+    allowClose: true,
+    popoverClass: 'pl-tour-popover',
+    steps,
+    onDestroyStarted: () => {
+      if (!driverObj.hasNextStep() || driverObj.getState().activeIndex === steps.length - 1) {
+        trackTourEvent(options.completeEvent || 'tour_completed');
+      } else {
+        trackTourEvent(options.skipEvent || 'tour_skipped');
+      }
+      if (options.doneKey) {
+        localStorage.setItem(options.doneKey, 'true');
+      }
+      activeTourDriver = null;
+      if (resultTourPending) {
+        resultTourPending = false;
+        setTimeout(() => startResultTour(), 120);
+      }
+      driverObj.destroy();
+    }
+  });
+
+  activeTourDriver = driverObj;
+  setTimeout(() => {
+    trackTourEvent(options.startEvent || 'tour_started');
+    driverObj.drive();
+  }, 500);
+
+  return driverObj;
+}
+
+function startCreatePageTour() {
+  const steps = [
+    { element: '.create-help-card', popover: { title: 'Create a secure paste', description: 'Start with your message, then choose the privacy controls that fit your workflow.' } },
+    { element: '#textInput', popover: { title: 'Paste your content', description: 'Drop your text, code, notes, or sensitive draft here.' } },
+    { element: '#expiryPills', popover: { title: 'Choose the expiry', description: 'Set how long the paste stays available before it expires automatically.' } },
+    { element: '#passwordInput', popover: { title: 'Add an optional password', description: 'Lock access to the link if you want only the right viewer to open it.' } },
+    { element: '.toggle-label', popover: { title: 'Burn after read', description: 'Enable one-time destruction so the content is removed after the first open.' } },
+    { element: '#saveBtn', popover: { title: 'Create the share link', description: 'When ready, generate a secure link you can send immediately.' } }
+  ];
+
+  launchTour(steps, {
+    startEvent: 'tour_started',
+    completeEvent: 'tour_completed',
+    skipEvent: 'tour_skipped',
+    doneKey: TOUR_DONE_KEY,
+  });
+}
+
+function queueResultTour() {
+  if (localStorage.getItem(RESULT_TOUR_DONE_KEY)) return;
+  resultTourPending = true;
+
+  if (activeTourDriver) {
+    activeTourDriver.destroy();
+    return;
+  }
+
+  startResultTour();
+}
+
+function startResultTour() {
+  if (resultTourShown || localStorage.getItem(RESULT_TOUR_DONE_KEY)) return;
+  resultTourShown = true;
+
+  const steps = [
+    { element: '#resultWrap', popover: { title: 'Your secure link is ready', description: 'PasteLink generated a private share URL for your content.' } },
+    { element: '#linkDisplayURL', popover: { title: 'Share the generated link', description: 'This is the final URL you can send to anyone you trust.' } },
+    { element: '#copyBtn', popover: { title: 'Copy the link fast', description: 'Use the copy action to send it through WhatsApp, Telegram, Email, or chat.' } },
+    { element: '#openBtn', popover: { title: 'Open in a new tab', description: 'Preview the live view link instantly from a separate tab.' } },
+    { element: '#qrLink', popover: { title: 'Open the QR code', description: 'Scan the QR code on mobile to open the page without typing the link.' } },
+    { element: '#downloadBtn', popover: { title: 'Download the content', description: 'Save the text locally as a plain text or Word document file.' } },
+    { element: '#newBtn', popover: { title: 'Start another paste', description: 'Clear the current state and create another secure share in one click.' } }
+  ];
+
+  launchTour(steps, {
+    startEvent: 'tour_result_started',
+    completeEvent: 'tour_result_completed',
+    skipEvent: 'tour_result_skipped',
+    doneKey: RESULT_TOUR_DONE_KEY,
+  });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   const pastesEl = document.getElementById('stat-pastes');
   const viewsEl = document.getElementById('stat-views');
@@ -403,55 +517,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  if (typeof window.driver !== 'undefined' && window.driver?.js) {
-    const hasSeenTour = localStorage.getItem('pl_tour_done');
+  if (typeof window.driver !== 'undefined' && typeof window.driver.js !== 'undefined') {
+    const hasSeenTour = localStorage.getItem(TOUR_DONE_KEY);
     const isCreatePage = !!document.getElementById('editorBox');
     const isHomePage = !!document.querySelector('.hero') && !isCreatePage;
 
-    if (!hasSeenTour && (isCreatePage || isHomePage)) {
-      const steps = isCreatePage
-        ? [
-            { element: '.create-help-card', popover: { title: 'Welcome to PasteLink Pro', description: 'Create a secure private paste in a few quick steps.' } },
-            { element: '#textInput', popover: { title: 'Paste Your Content', description: 'Add the text, code, or note you want to share.' } },
-            { element: '#expiryPills', popover: { title: 'Choose Expiry Time', description: 'Select a lifetime for your paste: 10 minutes, 1 hour, 12 hours, 1 day, or 7 days.' } },
-            { element: '#passwordInput', popover: { title: 'Add an Optional Password', description: 'Set a password if you want only the intended viewer to open the link.' } },
-            { element: '.toggle-label', popover: { title: 'Burn After Read', description: 'Turn this on if the paste should delete immediately after the first open.' } },
-            { element: '#saveBtn', popover: { title: 'Create the Share Link', description: 'Click here to generate a secure, private link instantly.' } }
-          ]
-        : [
-            { element: '.hero', popover: { title: 'PasteLink Pro', description: 'Create temporary, private share links with secure controls.' } },
-            { element: '.hero-cta', popover: { title: 'Start From the Home Page', description: 'Use the main call-to-action to open the creator page in one click.' } },
-            { element: '#demo', popover: { title: 'Watch the Product Demo', description: 'Use the walkthrough to understand how the app feels in real usage.' } },
-            { element: '.features', popover: { title: 'Explore the Main Features', description: 'See the key privacy and sharing controls at a glance.' } },
-            { element: '.faq-section', popover: { title: 'Review the FAQ', description: 'Check the most common questions about security, privacy, and expiry.' } }
-          ];
+    if (!hasSeenTour && isCreatePage) {
+      startCreatePageTour();
+    } else if (!hasSeenTour && isHomePage) {
+      const homeSteps = [
+        { element: '.hero', popover: { title: 'PasteLink Pro', description: 'Create temporary, private share links with secure controls.' } },
+        { element: '.hero-cta', popover: { title: 'Start from the home page', description: 'Use the primary action to open the creator page in one click.' } },
+        { element: '#demo', popover: { title: 'Watch the product demo', description: 'See how the workflow feels in a real, end-to-end example.' } },
+        { element: '.features', popover: { title: 'Explore the privacy features', description: 'Review the main product capabilities at a glance.' } },
+        { element: '.faq-section', popover: { title: 'Review the FAQ', description: 'Check common security and privacy questions quickly.' } }
+      ];
 
-      const driverFactory = typeof window.driver?.js?.driver === 'function'
-        ? window.driver.js.driver
-        : typeof window.driver?.js === 'function'
-          ? window.driver.js
-          : null;
-
-      if (!driverFactory) return;
-
-      const driverObj = driverFactory({
-        showProgress: true,
-        steps,
-        onDestroyStarted: () => {
-          if (!driverObj.hasNextStep() || driverObj.getState().activeIndex === steps.length - 1) {
-            fetch('/api/track', { method: 'POST', body: JSON.stringify({ event: 'tour_completed' }) }).catch(() => {});
-          } else {
-            fetch('/api/track', { method: 'POST', body: JSON.stringify({ event: 'tour_skipped' }) }).catch(() => {});
-          }
-          localStorage.setItem('pl_tour_done', 'true');
-          driverObj.destroy();
-        }
+      launchTour(homeSteps, {
+        startEvent: 'tour_started',
+        completeEvent: 'tour_completed',
+        skipEvent: 'tour_skipped',
+        doneKey: TOUR_DONE_KEY,
       });
-
-      setTimeout(() => {
-        fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'tour_started' }) }).catch(() => {});
-        driverObj.drive();
-      }, 500);
     }
   }
 });
