@@ -403,21 +403,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  if (typeof window.driver !== 'undefined') {
+  if (typeof window.driver !== 'undefined' && typeof window.driver.js === 'function') {
     const hasSeenTour = localStorage.getItem('pl_tour_done');
-    if (!hasSeenTour && document.getElementById('editorBox')) {
-      const steps = [
-        { element: '.hero', popover: { title: '👋 Welcome to PasteLink Pro', description: 'Share text securely in seconds without signup.' } },
-        { element: '#textInput', popover: { title: '📝 Paste Your Content', description: 'You can paste text, code, or any temporary notes here.' } },
-        { element: '#expiryPills', popover: { title: '⏳ Choose Expiry Time', description: 'Your paste will auto-delete after selected time:<br>10 min, 1 hour, 12 hours, 1 day, 7 days' } },
-        { element: '#passwordInput', popover: { title: '🔒 Add Password (Optional)', description: 'Protect your paste with a password.<br>Only users with password can access it.' } },
-        { element: '.toggle-label', popover: { title: '🔥 Burn After Read', description: 'Paste will be deleted immediately after first view.' } },
-        { element: '#saveBtn', popover: { title: '🚀 Create Share Link', description: 'Click to generate a secure link instantly.' } },
-        { popover: { title: '📋 Copy & Share Link', description: 'Share via WhatsApp, Telegram, Email, Discord, etc.' } },
-        { popover: { title: '📱 QR Code Sharing', description: 'Scan QR code to open paste instantly.<br>Great for meetings and presentations.' } },
-        { popover: { title: '👀 Secure Viewing', description: 'Recipients can view content safely.<br>Password may be required.' } },
-        { popover: { title: '🛡 Your Privacy Controls', description: 'You control expiry, password, and access.<br>We do not require accounts or track personal data.' } }
-      ];
+    const isCreatePage = !!document.getElementById('editorBox');
+    const isHomePage = !!document.querySelector('.hero') && !isCreatePage;
+
+    if (!hasSeenTour && (isCreatePage || isHomePage)) {
+      const steps = isCreatePage
+        ? [
+            { element: '.create-help-card', popover: { title: 'Welcome to PasteLink Pro', description: 'Create a secure private paste in a few quick steps.' } },
+            { element: '#textInput', popover: { title: 'Paste Your Content', description: 'Add the text, code, or note you want to share.' } },
+            { element: '#expiryPills', popover: { title: 'Choose Expiry Time', description: 'Select a lifetime for your paste: 10 minutes, 1 hour, 12 hours, 1 day, or 7 days.' } },
+            { element: '#passwordInput', popover: { title: 'Add an Optional Password', description: 'Set a password if you want only the intended viewer to open the link.' } },
+            { element: '.toggle-label', popover: { title: 'Burn After Read', description: 'Turn this on if the paste should delete immediately after the first open.' } },
+            { element: '#saveBtn', popover: { title: 'Create the Share Link', description: 'Click here to generate a secure, private link instantly.' } }
+          ]
+        : [
+            { element: '.hero', popover: { title: 'PasteLink Pro', description: 'Create temporary, private share links with secure controls.' } },
+            { element: '.hero-cta', popover: { title: 'Start From the Home Page', description: 'Use the main call-to-action to open the creator page in one click.' } },
+            { element: '#demo', popover: { title: 'Watch the Product Demo', description: 'Use the walkthrough to understand how the app feels in real usage.' } },
+            { element: '.features', popover: { title: 'Explore the Main Features', description: 'See the key privacy and sharing controls at a glance.' } },
+            { element: '.faq-section', popover: { title: 'Review the FAQ', description: 'Check the most common questions about security, privacy, and expiry.' } }
+          ];
 
       const driverObj = window.driver.js({
         showProgress: true,
@@ -432,8 +439,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           driverObj.destroy();
         }
       });
+
       setTimeout(() => {
-        fetch('/api/track', { method: 'POST', body: JSON.stringify({ event: 'tour_started' }) }).catch(() => {});
+        fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'tour_started' }) }).catch(() => {});
         driverObj.drive();
       }, 500);
     }
