@@ -1,0 +1,27 @@
+# PasteLink Pro
+
+URL: https://paste-link-pro.vercel.app/
+
+Description:
+PasteLink Pro is a secure temporary text and code sharing platform that lets users create private share links with optional password protection, auto-expiry, and burn-after-read behavior. The service is designed for developers, teams, support workflows, and privacy-conscious users who need fast, temporary sharing without account signup.
+
+Primary pages:
+- https://paste-link-pro.vercel.app/ — Home page and main product overview
+- https://paste-link-pro.vercel.app/create.html — Create a secure paste link
+- https://paste-link-pro.vercel.app/pages/about.html — About the product and mission
+- https://paste-link-pro.vercel.app/pages/contact.html — Contact and support information
+- https://paste-link-pro.vercel.app/pages/privacy.html — Privacy and security policy
+- https://paste-link-pro.vercel.app/pages/terms.html — Terms and acceptable use
+
+Key product features:
+- No registration required
+- Password protection for private sharing
+- Auto-expiry between 10 minutes and 7 days
+- Burn-after-read support
+- HTTPS transmission and secure backend storage practices
+- Temporary, privacy-first data lifecycle
+
+Trust and security notes:
+- Passwords are not stored in plain text
+- Only temporary sharing is intended; content is not meant to be permanent storage
+- The website is for secure, short-lived text/code sharing workflows
